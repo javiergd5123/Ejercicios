@@ -48,6 +48,58 @@ MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb
 
 ## Ejercicios
 
+### Volúmenes
+
+1.Crea un volumen docker que se llame **miweb** .
+
+```bash
+$ docker volume create miweb
+```
+
+![image-20240205094208321](./assets/image-20240205094208321.png)
+
+2.Crea un contenedor desde la imagen php:7.4-apache donde montes en el directorio /var/www/html (que sabemos que es el DocumentRoot del servidor que nos ofrece esa imagen) el volumen docker que has creado.
+
+```bash
+$ docker run -d -p 8080:80 -v miweb:/var/www/html php:7.4-apache
+```
+
+![image-20240205094509754](./assets/image-20240205094509754.png)
+
+3.Utiliza el comando docker cp para copiar un fichero index.html en el directorio /var/www/html .
+
+```bash
+$ docker cp index.html gallant_hawking:/var/www/html/
+```
+
+![image-20240205094901561](./assets/image-20240205094901561.png)
+
+4.Accede al contenedor desde el navegador para ver la información ofrecida por el fichero index.html .
+
+![image-20240205095018555](./assets/image-20240205095018555.png)
+
+5.Borra el contenedor
+
+```bash
+$ docker rm gallant_hawking -f
+```
+
+![image-20240205095053446](./assets/image-20240205095053446.png)
+
+6.Crea un nuevo contenedor y monta el mismo volumen como en el ejercicio anterior.
+
+```bash
+docker run -d -p 8080:80 --name contenedor2 -v miweb:/var/www/html php:7.4-apache
+```
+
+![image-20240205095304123](./assets/image-20240205095304123.png)
+
+7.Accede al contenedor desde el navegador para ver la información ofrecida por el fichero index.html . ¿Seguía existiendo ese fichero?
+
+![image-20240205095354552](./assets/image-20240205095354552.png)
+
+### Bind Mount
+
 1. Crea un directorio en tu host y dentro crea un fichero index.html .
 
    ```bash
